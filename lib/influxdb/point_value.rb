@@ -91,7 +91,7 @@ module InfluxDB
     def escape_time(t, precision)
       return t if t.nil? || t.is_a?(Integer) # ignore precision
 
-      t = t.to_time if t.respond_to?(:to_time)
+      t = (t.respond_to?(:to_time) ? t.to_time : t).getutc
       f = PRECISION_MULTIPLIER.fetch(precision, 1)
       (t.to_r * f).to_i
     end
